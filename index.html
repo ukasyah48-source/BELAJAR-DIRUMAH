@@ -189,22 +189,28 @@
       position: fixed;
       bottom: 5%;
       right: 5%;
-      width: 60px;
-      height: 60px;
+      width: 70px;
+      height: 70px;
       border-radius: 50%;
       background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
       color: white;
-      border: none;
-      font-size: 1.5em;
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      font-size: 2em;
       cursor: pointer;
-      box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+      box-shadow: 0 10px 40px rgba(99, 102, 241, 0.6), 0 0 0 0 rgba(99, 102, 241, 0.5);
       transition: all 0.3s;
       z-index: 100;
+      animation: floating 3s ease-in-out infinite;
     }
 
     .floating-action:hover {
-      transform: scale(1.1) rotate(90deg);
-      box-shadow: 0 15px 40px rgba(99, 102, 241, 0.6);
+      transform: scale(1.15) rotate(90deg);
+      box-shadow: 0 20px 50px rgba(99, 102, 241, 0.8), 0 0 20px rgba(99, 102, 241, 0.6);
+    }
+
+    @keyframes floating {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
     }
 
     .search-box {
@@ -254,48 +260,158 @@
   <script src="/_sdk/element_sdk.js" type="text/javascript"></script>
  </head>
  <body class="w-full min-h-full">
-  <div class="w-full min-h-full" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%, #f093fb 100%);">
-   <div class="w-full" style="padding: 2% 3%;">
+  <div class="w-full min-h-full" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%); position: relative; overflow: hidden;"><!-- Animated Background Shapes -->
+   <div style="position: absolute; top: -10%; left: -5%; width: 40%; height: 40%; background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%); border-radius: 50%; animation: pulse 8s ease-in-out infinite;"></div>
+   <div style="position: absolute; bottom: -10%; right: -5%; width: 50%; height: 50%; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%); border-radius: 50%; animation: pulse 10s ease-in-out infinite reverse;"></div>
+   <div class="w-full" style="padding: 2% 3%; position: relative; z-index: 1;">
     <div class="w-full" style="max-width: 1600px; margin: 0 auto;"><!-- Header dengan Animasi -->
-     <header class="w-full text-center fade-in" style="margin-bottom: 2%; position: relative;">
-      <h1 id="app-title" style="font-size: 2em; font-weight: 900; color: #ffffff; margin-bottom: 0.5%; text-shadow: 3px 3px 6px rgba(0,0,0,0.3); letter-spacing: -1px;">📚 LAPORAN TUGAS WAJIB SMPIT BAITUL 'ILMI</h1>
-      <p id="app-subtitle" style="font-size: 1em; color: #f0f4ff; text-shadow: 1px 1px 2px rgba(0,0,0,0.2);">Sistem Pencatatan Muraja'ah Harian Siswa</p><!-- Mode Toggle -->
-      <div style="position: absolute; top: 0; right: 0; display: flex; gap: 10px; background: rgba(255, 255, 255, 0.2); padding: 10px 15px; border-radius: 15px; backdrop-filter: blur(10px);"><button id="modeSiswa" class="mode-btn active" style="padding: 8px 20px; border: none; border-radius: 10px; cursor: pointer; font-weight: 700; transition: all 0.3s; background: #ffffff; color: #6366f1; box-shadow: 0 4px 10px rgba(0,0,0,0.1);"> 👨‍🎓 Siswa </button> <button id="modeGuru" class="mode-btn" style="padding: 8px 20px; border: none; border-radius: 10px; cursor: pointer; font-weight: 700; transition: all 0.3s; background: transparent; color: #ffffff;"> 👨‍🏫 Guru </button>
+     <header class="w-full text-center fade-in" style="margin-bottom: 3%; position: relative;">
+      <div style="background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(20px); border-radius: 30px; padding: 3% 4%; box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2); border: 2px solid rgba(255, 255, 255, 0.3);">
+       <div style="display: flex; align-items: center; justify-content: center; gap: 3%; margin-bottom: 1.5%;">
+        <div style="font-size: 4em; animation: pulse 3s ease-in-out infinite;">
+         📚
+        </div>
+        <h1 id="app-title" style="font-size: 2.5em; font-weight: 900; color: #ffffff; margin: 0; text-shadow: 3px 3px 8px rgba(0,0,0,0.4); letter-spacing: -1px; background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">LAPORAN TUGAS WAJIB<br>
+         SMPIT BAITUL 'ILMI</h1>
+        <div style="font-size: 4em; animation: pulse 3s ease-in-out infinite;">
+         📖
+        </div>
+       </div>
+       <p id="app-subtitle" style="font-size: 1.2em; color: #ffffff; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); font-weight: 600; letter-spacing: 0.5px;">✨ Sistem Pencatatan Muraja'ah Harian Siswa ✨</p><!-- Mode Toggle - Repositioned -->
+       <div style="margin-top: 2%; display: flex; gap: 15px; justify-content: center; align-items: center;"><button id="modeSiswa" class="mode-btn active" style="padding: 12px 30px; border: none; border-radius: 15px; cursor: pointer; font-weight: 800; transition: all 0.3s; background: #ffffff; color: #6366f1; box-shadow: 0 8px 20px rgba(0,0,0,0.15); font-size: 1.1em;"> 👨‍🎓 Siswa </button> <button id="modeGuru" class="mode-btn" style="padding: 12px 30px; border: none; border-radius: 15px; cursor: pointer; font-weight: 800; transition: all 0.3s; background: rgba(255, 255, 255, 0.2); color: #ffffff; border: 2px solid rgba(255, 255, 255, 0.4); font-size: 1.1em;"> 👨‍🏫 Guru </button>
+       </div>
       </div>
      </header><!-- Dashboard Statistics dengan Design Modern -->
-     <div class="w-full" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2%; margin-bottom: 3%;">
-      <div class="card-shadow card-hover fade-in glassmorphism" style="border-radius: 24px; padding: 6%; text-align: center; background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(255, 255, 255, 0.95));">
-       <div style="font-size: 3em; margin-bottom: 5%;">
-        📊
-       </div>
-       <div id="stat-total" style="font-size: 2.8em; font-weight: 900; color: #6366f1; margin-bottom: 3%;">
-        0
-       </div>
-       <div style="font-size: 0.9em; color: #6b7280; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
-        Total Tugas
-       </div>
-      </div>
-      <div class="card-shadow card-hover fade-in glassmorphism" style="border-radius: 24px; padding: 6%; text-align: center; animation-delay: 0.2s; background: linear-gradient(135deg, rgba(139, 92, 246, 0.05), rgba(255, 255, 255, 0.95));">
-       <div style="font-size: 3em; margin-bottom: 5%;">
-        📚
-       </div>
-       <div id="stat-waktu" style="font-size: 2.8em; font-weight: 900; color: #8b5cf6; margin-bottom: 3%;">
-        0
-       </div>
-       <div style="font-size: 0.9em; color: #6b7280; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
-        Mapel Diniyyah
+     <div class="w-full" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5%; margin-bottom: 3%;">
+      <div class="card-shadow card-hover fade-in" style="border-radius: 28px; padding: 7%; text-align: center; background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); position: relative; overflow: hidden; border: 3px solid rgba(255, 255, 255, 0.3);">
+       <div style="position: absolute; top: -20%; right: -20%; width: 150%; height: 150%; background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 60%); animation: pulse 4s ease-in-out infinite;"></div>
+       <div style="position: relative; z-index: 1;">
+        <div style="font-size: 3.5em; margin-bottom: 5%; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));">
+         📊
+        </div>
+        <div id="stat-total" style="font-size: 3.5em; font-weight: 900; color: #ffffff; margin-bottom: 3%; text-shadow: 3px 3px 6px rgba(0,0,0,0.3);">
+         0
+        </div>
+        <div style="font-size: 1em; color: rgba(255, 255, 255, 0.95); font-weight: 800; text-transform: uppercase; letter-spacing: 1px; text-shadow: 1px 1px 3px rgba(0,0,0,0.2);">
+         Total Tugas
+        </div>
        </div>
       </div>
-      <div class="card-shadow card-hover fade-in glassmorphism" style="border-radius: 24px; padding: 6%; text-align: center; animation-delay: 0.3s; background: linear-gradient(135deg, rgba(236, 72, 153, 0.05), rgba(255, 255, 255, 0.95));">
-       <div style="font-size: 3em; margin-bottom: 5%;">
-        ❤️
+      <div class="card-shadow card-hover fade-in" style="border-radius: 28px; padding: 7%; text-align: center; animation-delay: 0.2s; background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%); position: relative; overflow: hidden; border: 3px solid rgba(255, 255, 255, 0.3);">
+       <div style="position: absolute; top: -20%; right: -20%; width: 150%; height: 150%; background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 60%); animation: pulse 4s ease-in-out infinite;"></div>
+       <div style="position: relative; z-index: 1;">
+        <div style="font-size: 3.5em; margin-bottom: 5%; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));">
+         📚
+        </div>
+        <div id="stat-waktu" style="font-size: 3.5em; font-weight: 900; color: #ffffff; margin-bottom: 3%; text-shadow: 3px 3px 6px rgba(0,0,0,0.3);">
+         0
+        </div>
+        <div style="font-size: 1em; color: rgba(255, 255, 255, 0.95); font-weight: 800; text-transform: uppercase; letter-spacing: 1px; text-shadow: 1px 1px 3px rgba(0,0,0,0.2);">
+         Mapel Diniyyah
+        </div>
        </div>
-       <div id="stat-orangtua" style="font-size: 2.8em; font-weight: 900; color: #ec4899; margin-bottom: 3%;">
-        0
+      </div>
+      <div class="card-shadow card-hover fade-in" style="border-radius: 28px; padding: 7%; text-align: center; animation-delay: 0.3s; background: linear-gradient(135deg, #ec4899 0%, #f472b6 100%); position: relative; overflow: hidden; border: 3px solid rgba(255, 255, 255, 0.3);">
+       <div style="position: absolute; top: -20%; right: -20%; width: 150%; height: 150%; background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 60%); animation: pulse 4s ease-in-out infinite;"></div>
+       <div style="position: relative; z-index: 1;">
+        <div style="font-size: 3.5em; margin-bottom: 5%; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));">
+         ❤️
+        </div>
+        <div id="stat-orangtua" style="font-size: 3.5em; font-weight: 900; color: #ffffff; margin-bottom: 3%; text-shadow: 3px 3px 6px rgba(0,0,0,0.3);">
+         0
+        </div>
+        <div style="font-size: 1em; color: rgba(255, 255, 255, 0.95); font-weight: 800; text-transform: uppercase; letter-spacing: 1px; text-shadow: 1px 1px 3px rgba(0,0,0,0.2);">
+         Membantu Orangtua
+        </div>
        </div>
-       <div style="font-size: 0.9em; color: #6b7280; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
-        Membantu Orangtua
+      </div>
+     </div><!-- Detailed Statistics Section -->
+     <div class="w-full glassmorphism card-shadow" style="border-radius: 28px; padding: 4%; margin-bottom: 3%; border: 3px solid rgba(255, 255, 255, 0.3);">
+      <div style="background: linear-gradient(135deg, #10b981, #059669); border-radius: 20px; padding: 3%; margin-bottom: 4%; text-align: center;">
+       <h2 style="font-size: 1.8em; font-weight: 900; color: #ffffff; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">📈 Statistik Lengkap</h2>
+      </div><!-- Statistics Grid -->
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 3%; margin-bottom: 3%;"><!-- Siswa Teraktif -->
+       <div style="background: linear-gradient(135deg, #fef3c7, #fde68a); padding: 5%; border-radius: 20px; border: 3px solid #fcd34d;">
+        <div style="display: flex; align-items: center; gap: 3%; margin-bottom: 3%;">
+         <div style="font-size: 2.5em;">
+          🏆
+         </div>
+         <h3 style="font-size: 1.3em; font-weight: 800; color: #92400e; margin: 0;">Siswa Teraktif</h3>
+        </div>
+        <div id="stat-siswa-teraktif" style="font-size: 1.1em; font-weight: 700; color: #78350f; line-height: 1.6;">
+         -
+        </div>
+       </div><!-- Rata-rata Per Hari -->
+       <div style="background: linear-gradient(135deg, #dbeafe, #bfdbfe); padding: 5%; border-radius: 20px; border: 3px solid #93c5fd;">
+        <div style="display: flex; align-items: center; gap: 3%; margin-bottom: 3%;">
+         <div style="font-size: 2.5em;">
+          📅
+         </div>
+         <h3 style="font-size: 1.3em; font-weight: 800; color: #1e40af; margin: 0;">Rata-rata Per Hari</h3>
+        </div>
+        <div id="stat-rata-rata" style="font-size: 2.5em; font-weight: 900; color: #1e3a8a;">
+         0
+        </div>
+        <div style="font-size: 0.9em; color: #1e40af; font-weight: 600; margin-top: 2%;">
+         tugas per hari
+        </div>
+       </div><!-- Total Siswa Aktif -->
+       <div style="background: linear-gradient(135deg, #e0e7ff, #c7d2fe); padding: 5%; border-radius: 20px; border: 3px solid #a5b4fc;">
+        <div style="display: flex; align-items: center; gap: 3%; margin-bottom: 3%;">
+         <div style="font-size: 2.5em;">
+          👥
+         </div>
+         <h3 style="font-size: 1.3em; font-weight: 800; color: #4338ca; margin: 0;">Total Siswa Aktif</h3>
+        </div>
+        <div id="stat-siswa-total" style="font-size: 2.5em; font-weight: 900; color: #3730a3;">
+         0
+        </div>
+        <div style="font-size: 0.9em; color: #4338ca; font-weight: 600; margin-top: 2%;">
+         siswa
+        </div>
+       </div><!-- Mapel Umum -->
+       <div style="background: linear-gradient(135deg, #fce7f3, #fbcfe8); padding: 5%; border-radius: 20px; border: 3px solid #f9a8d4;">
+        <div style="display: flex; align-items: center; gap: 3%; margin-bottom: 3%;">
+         <div style="font-size: 2.5em;">
+          📖
+         </div>
+         <h3 style="font-size: 1.3em; font-weight: 800; color: #9f1239; margin: 0;">Mapel Umum</h3>
+        </div>
+        <div id="stat-umum" style="font-size: 2.5em; font-weight: 900; color: #831843;">
+         0
+        </div>
+        <div style="font-size: 0.9em; color: #9f1239; font-weight: 600; margin-top: 2%;">
+         muraja'ah
+        </div>
        </div>
+      </div><!-- Progress Bars -->
+      <div style="background: #ffffff; padding: 4%; border-radius: 20px; border: 2px solid #e5e7eb;">
+       <h3 style="font-size: 1.2em; font-weight: 800; color: #374151; margin-bottom: 4%;">📊 Distribusi Aktivitas</h3>
+       <div style="margin-bottom: 4%;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 2%;"><span style="font-weight: 700; color: #6366f1;">📚 Mapel Diniyyah</span> <span id="percent-diniyyah" style="font-weight: 800; color: #6366f1;">0%</span>
+        </div>
+        <div style="height: 12px; background: #e5e7eb; border-radius: 10px; overflow: hidden;">
+         <div id="bar-diniyyah" style="height: 100%; background: linear-gradient(90deg, #6366f1, #8b5cf6); border-radius: 10px; width: 0%; transition: width 1s ease;"></div>
+        </div>
+       </div>
+       <div style="margin-bottom: 4%;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 2%;"><span style="font-weight: 700; color: #f59e0b;">📖 Mapel Umum</span> <span id="percent-umum" style="font-weight: 800; color: #f59e0b;">0%</span>
+        </div>
+        <div style="height: 12px; background: #e5e7eb; border-radius: 10px; overflow: hidden;">
+         <div id="bar-umum" style="height: 100%; background: linear-gradient(90deg, #f59e0b, #d97706); border-radius: 10px; width: 0%; transition: width 1s ease;"></div>
+        </div>
+       </div>
+       <div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 2%;"><span style="font-weight: 700; color: #ec4899;">❤️ Membantu Orangtua</span> <span id="percent-orangtua" style="font-weight: 800; color: #ec4899;">0%</span>
+        </div>
+        <div style="height: 12px; background: #e5e7eb; border-radius: 10px; overflow: hidden;">
+         <div id="bar-orangtua" style="height: 100%; background: linear-gradient(90deg, #ec4899, #f472b6); border-radius: 10px; width: 0%; transition: width 1s ease;"></div>
+        </div>
+       </div>
+      </div><!-- Weekly Activity Chart -->
+      <div style="background: #ffffff; padding: 4%; border-radius: 20px; margin-top: 3%; border: 2px solid #e5e7eb;">
+       <h3 style="font-size: 1.2em; font-weight: 800; color: #374151; margin-bottom: 4%;">📆 Aktivitas 7 Hari Terakhir</h3>
+       <div id="weekly-chart" style="display: flex; align-items: flex-end; justify-content: space-between; gap: 1%; height: 200px;"></div>
       </div>
      </div><!-- Search Bar & Quick Actions -->
      <div class="w-full glassmorphism card-shadow" style="border-radius: 20px; padding: 2%; margin-bottom: 2%; display: flex; gap: 2%; align-items: center;">
@@ -306,9 +422,15 @@
       <div style="display: flex; gap: 1%;"><button id="tab-form" class="tab-button active" style="flex: 1; padding: 3%; background: transparent; border: none; font-size: 1em; font-weight: 700; color: #6366f1;"> ➕ Tambah Tugas </button> <button id="tab-semua" class="tab-button" style="flex: 1; padding: 3%; background: transparent; border: none; font-size: 1em; font-weight: 700; color: #6b7280;"> 📑 Semua Tugas </button>
       </div>
      </div><!-- Form Section dengan Design Enhanced -->
-     <div id="section-form" class="w-full glassmorphism card-shadow" style="border-radius: 28px; padding: 5%; margin-bottom: 3%;">
-      <div style="background: linear-gradient(135deg, #6366f1, #8b5cf6); border-radius: 20px; padding: 4%; margin-bottom: 5%; text-align: center;">
-       <h2 id="form-title" style="font-size: 2em; font-weight: 900; color: #ffffff; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">✏️ Input Laporan Muraja'ah</h2>
+     <div id="section-form" class="w-full glassmorphism card-shadow" style="border-radius: 32px; padding: 5%; margin-bottom: 3%; border: 3px solid rgba(255, 255, 255, 0.3);">
+      <div style="background: linear-gradient(135deg, #6366f1, #8b5cf6); border-radius: 24px; padding: 4%; margin-bottom: 5%; text-align: center; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);">
+       <div style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%); animation: pulse 6s ease-in-out infinite;"></div>
+       <div style="position: relative; z-index: 1;">
+        <div style="font-size: 3em; margin-bottom: 2%;">
+         ✏️
+        </div>
+        <h2 id="form-title" style="font-size: 2.2em; font-weight: 900; color: #ffffff; margin: 0; text-shadow: 3px 3px 6px rgba(0,0,0,0.3); letter-spacing: 0.5px;">Input Laporan Muraja'ah</h2>
+       </div>
       </div>
       <form id="taskForm"><input type="hidden" id="editingTaskId">
        <div class="w-full" style="margin-bottom: 4%;"><label for="namaSiswa" style="display: block; font-size: 1em; font-weight: 700; color: #374151; margin-bottom: 3%; display: flex; align-items: center; gap: 2%;"> <span style="font-size: 1.3em;">👤</span> <span>Nama Siswa</span> </label> <input type="text" id="namaSiswa" required class="w-full input-focus" style="padding: 4%; border: 3px solid #e5e7eb; border-radius: 16px; font-size: 1.05em; transition: all 0.3s; background: #fafafa;" placeholder="Masukkan nama siswa">
@@ -504,10 +626,114 @@
       const total = allTasks.length;
       const mapelDiniyyah = allTasks.filter(t => t.prioritas).length;
       const membantOrangtua = allTasks.filter(t => t.tugas_orangtua).length;
+      const mapelUmum = allTasks.filter(t => t.estimasi_waktu).length;
 
       document.getElementById('stat-total').textContent = total;
       document.getElementById('stat-waktu').textContent = mapelDiniyyah;
       document.getElementById('stat-orangtua').textContent = membantOrangtua;
+      document.getElementById('stat-umum').textContent = mapelUmum;
+
+      // Calculate student statistics
+      const uniqueStudents = [...new Set(allTasks.map(t => t.nama_siswa))];
+      document.getElementById('stat-siswa-total').textContent = uniqueStudents.length;
+
+      // Most active student
+      if (allTasks.length > 0) {
+        const studentCounts = {};
+        allTasks.forEach(task => {
+          studentCounts[task.nama_siswa] = (studentCounts[task.nama_siswa] || 0) + 1;
+        });
+        const topStudent = Object.entries(studentCounts).sort((a, b) => b[1] - a[1])[0];
+        document.getElementById('stat-siswa-teraktif').innerHTML = `
+          <div style="font-size: 1.5em; font-weight: 900; margin-bottom: 1%;">${topStudent[0]}</div>
+          <div style="font-size: 0.95em;">${topStudent[1]} laporan muraja'ah</div>
+        `;
+      } else {
+        document.getElementById('stat-siswa-teraktif').textContent = 'Belum ada data';
+      }
+
+      // Calculate daily average
+      if (allTasks.length > 0) {
+        const dates = allTasks.map(t => new Date(t.tanggal).toDateString());
+        const uniqueDates = [...new Set(dates)].length;
+        const average = (allTasks.length / Math.max(uniqueDates, 1)).toFixed(1);
+        document.getElementById('stat-rata-rata').textContent = average;
+      } else {
+        document.getElementById('stat-rata-rata').textContent = '0';
+      }
+
+      // Update percentage bars
+      if (total > 0) {
+        const diniyyahPercent = Math.round((mapelDiniyyah / total) * 100);
+        const umumPercent = Math.round((mapelUmum / total) * 100);
+        const orangtuaPercent = Math.round((membantOrangtua / total) * 100);
+
+        document.getElementById('percent-diniyyah').textContent = diniyyahPercent + '%';
+        document.getElementById('percent-umum').textContent = umumPercent + '%';
+        document.getElementById('percent-orangtua').textContent = orangtuaPercent + '%';
+
+        // Animate bars
+        setTimeout(() => {
+          document.getElementById('bar-diniyyah').style.width = diniyyahPercent + '%';
+          document.getElementById('bar-umum').style.width = umumPercent + '%';
+          document.getElementById('bar-orangtua').style.width = orangtuaPercent + '%';
+        }, 100);
+      } else {
+        document.getElementById('percent-diniyyah').textContent = '0%';
+        document.getElementById('percent-umum').textContent = '0%';
+        document.getElementById('percent-orangtua').textContent = '0%';
+        document.getElementById('bar-diniyyah').style.width = '0%';
+        document.getElementById('bar-umum').style.width = '0%';
+        document.getElementById('bar-orangtua').style.width = '0%';
+      }
+
+      // Update weekly chart
+      updateWeeklyChart();
+    }
+
+    function updateWeeklyChart() {
+      const chartContainer = document.getElementById('weekly-chart');
+      const today = new Date();
+      const last7Days = [];
+      
+      // Generate last 7 days
+      for (let i = 6; i >= 0; i--) {
+        const date = new Date(today);
+        date.setDate(date.getDate() - i);
+        last7Days.push(date);
+      }
+
+      // Count tasks per day
+      const dailyCounts = last7Days.map(date => {
+        const dateStr = date.toDateString();
+        return allTasks.filter(task => {
+          return new Date(task.tanggal).toDateString() === dateStr;
+        }).length;
+      });
+
+      const maxCount = Math.max(...dailyCounts, 1);
+
+      // Render chart bars
+      let chartHTML = '';
+      last7Days.forEach((date, index) => {
+        const count = dailyCounts[index];
+        const heightPercent = (count / maxCount) * 100;
+        const dayName = date.toLocaleDateString('id-ID', { weekday: 'short' });
+        const dateNum = date.getDate();
+
+        chartHTML += `
+          <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 10px;">
+            <div style="font-size: 0.9em; font-weight: 800; color: #6366f1; min-height: 24px;">${count > 0 ? count : ''}</div>
+            <div style="width: 100%; height: ${heightPercent}%; min-height: ${count > 0 ? '20px' : '5px'}; background: linear-gradient(180deg, #6366f1, #8b5cf6); border-radius: 10px 10px 0 0; transition: all 0.5s ease; box-shadow: 0 -2px 10px rgba(99, 102, 241, 0.3);"></div>
+            <div style="text-align: center;">
+              <div style="font-size: 0.85em; font-weight: 700; color: #374151;">${dayName}</div>
+              <div style="font-size: 0.75em; color: #9ca3af;">${dateNum}</div>
+            </div>
+          </div>
+        `;
+      });
+
+      chartContainer.innerHTML = chartHTML;
     }
 
     function switchTab(tabName) {
@@ -1013,5 +1239,5 @@
     // Initial render
     renderTasks();
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a3761486031ce69',t:'MTc2Mzk3MTMwNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a376a57d737ce69',t:'MTc2Mzk3MTY3NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
