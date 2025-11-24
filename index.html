@@ -10,6 +10,10 @@
       box-sizing: border-box;
     }
     
+    * {
+      font-size: 14px;
+    }
+    
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
@@ -253,9 +257,11 @@
   <div class="w-full min-h-full" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%, #f093fb 100%);">
    <div class="w-full" style="padding: 2% 3%;">
     <div class="w-full" style="max-width: 1600px; margin: 0 auto;"><!-- Header dengan Animasi -->
-     <header class="w-full text-center fade-in" style="margin-bottom: 2%;">
-      <h1 id="app-title" style="font-size: 2.5em; font-weight: 900; color: #ffffff; margin-bottom: 0.5%; text-shadow: 3px 3px 6px rgba(0,0,0,0.3); letter-spacing: -1px;">📚 LAPORAN TUGAS WAJIB SMPIT BAITUL 'ILMI</h1>
-      <p id="app-subtitle" style="font-size: 1.1em; color: #f0f4ff; text-shadow: 1px 1px 2px rgba(0,0,0,0.2);">Sistem Pencatatan Muraja'ah Harian Siswa</p>
+     <header class="w-full text-center fade-in" style="margin-bottom: 2%; position: relative;">
+      <h1 id="app-title" style="font-size: 2em; font-weight: 900; color: #ffffff; margin-bottom: 0.5%; text-shadow: 3px 3px 6px rgba(0,0,0,0.3); letter-spacing: -1px;">📚 LAPORAN TUGAS WAJIB SMPIT BAITUL 'ILMI</h1>
+      <p id="app-subtitle" style="font-size: 1em; color: #f0f4ff; text-shadow: 1px 1px 2px rgba(0,0,0,0.2);">Sistem Pencatatan Muraja'ah Harian Siswa</p><!-- Mode Toggle -->
+      <div style="position: absolute; top: 0; right: 0; display: flex; gap: 10px; background: rgba(255, 255, 255, 0.2); padding: 10px 15px; border-radius: 15px; backdrop-filter: blur(10px);"><button id="modeSiswa" class="mode-btn active" style="padding: 8px 20px; border: none; border-radius: 10px; cursor: pointer; font-weight: 700; transition: all 0.3s; background: #ffffff; color: #6366f1; box-shadow: 0 4px 10px rgba(0,0,0,0.1);"> 👨‍🎓 Siswa </button> <button id="modeGuru" class="mode-btn" style="padding: 8px 20px; border: none; border-radius: 10px; cursor: pointer; font-weight: 700; transition: all 0.3s; background: transparent; color: #ffffff;"> 👨‍🏫 Guru </button>
+      </div>
      </header><!-- Dashboard Statistics dengan Design Modern -->
      <div class="w-full" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2%; margin-bottom: 3%;">
       <div class="card-shadow card-hover fade-in glassmorphism" style="border-radius: 24px; padding: 6%; text-align: center; background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(255, 255, 255, 0.95));">
@@ -341,6 +347,60 @@
         <p style="font-size: 1.1em; margin-top: 2%; color: #9ca3af;">Tambahkan laporan muraja'ah pertama Anda!</p>
        </div>
       </div>
+     </div><!-- Mode Guru Section -->
+     <div id="section-guru" class="w-full" style="display: none;">
+      <div class="w-full glassmorphism card-shadow" style="border-radius: 28px; padding: 4%;">
+       <div style="background: linear-gradient(135deg, #f59e0b, #d97706); border-radius: 20px; padding: 3%; margin-bottom: 4%; text-align: center; position: relative; overflow: hidden;">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22white%22 opacity=%220.05%22/></svg>') center/50px; opacity: 0.3;"></div>
+        <h2 style="font-size: 2em; font-weight: 900; color: #ffffff; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); position: relative;">👨‍🏫 Dashboard Guru</h2>
+        <p style="color: #fef3c7; margin-top: 10px; font-weight: 600; position: relative;">Analisis &amp; Monitoring Muraja'ah Siswa</p>
+       </div><!-- Filter Guru -->
+       <div style="display: flex; gap: 15px; margin-bottom: 25px; flex-wrap: wrap;"><select id="filterKelas" style="padding: 10px 15px; border: 2px solid #e5e7eb; border-radius: 12px; font-weight: 600; cursor: pointer; background: white; flex: 1; min-width: 200px;"> <option value="semua">🏫 Semua Kelas</option> <option value="7A">Kelas 7A</option> <option value="7B">Kelas 7B</option> <option value="8A">Kelas 8A</option> <option value="8B">Kelas 8B</option> <option value="9A">Kelas 9A</option> <option value="9B">Kelas 9B</option> </select> <select id="filterPeriode" style="padding: 10px 15px; border: 2px solid #e5e7eb; border-radius: 12px; font-weight: 600; cursor: pointer; background: white; flex: 1; min-width: 200px;"> <option value="hari">📅 Hari Ini</option> <option value="minggu">📆 Minggu Ini</option> <option value="bulan">📊 Bulan Ini</option> <option value="semua">🗓️ Semua Periode</option> </select>
+       </div><!-- Stats Guru -->
+       <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 25px;">
+        <div style="background: linear-gradient(135deg, #3b82f6, #2563eb); padding: 20px; border-radius: 15px; text-align: center; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);">
+         <div style="font-size: 2.5em;">
+          👥
+         </div>
+         <div id="guru-stat-siswa" style="font-size: 2em; font-weight: 900; color: #ffffff; margin: 10px 0;">
+          0
+         </div>
+         <div style="font-size: 0.85em; color: #dbeafe; font-weight: 600;">
+          Total Siswa
+         </div>
+        </div>
+        <div style="background: linear-gradient(135deg, #10b981, #059669); padding: 20px; border-radius: 15px; text-align: center; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);">
+         <div style="font-size: 2.5em;">
+          ✅
+         </div>
+         <div id="guru-stat-laporan" style="font-size: 2em; font-weight: 900; color: #ffffff; margin: 10px 0;">
+          0
+         </div>
+         <div style="font-size: 0.85em; color: #d1fae5; font-weight: 600;">
+          Laporan Masuk
+         </div>
+        </div>
+        <div style="background: linear-gradient(135deg, #8b5cf6, #7c3aed); padding: 20px; border-radius: 15px; text-align: center; box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);">
+         <div style="font-size: 2.5em;">
+          📚
+         </div>
+         <div id="guru-stat-diniyyah" style="font-size: 2em; font-weight: 900; color: #ffffff; margin: 10px 0;">
+          0
+         </div>
+         <div style="font-size: 0.85em; color: #ede9fe; font-weight: 600;">
+          Mapel Diniyyah
+         </div>
+        </div>
+       </div><!-- Tabel Guru -->
+       <div id="guru-table-container"></div>
+       <div id="guruEmptyState" style="text-align: center; padding: 60px 20px; color: #9ca3af;">
+        <div style="font-size: 4em; margin-bottom: 15px;">
+         📊
+        </div>
+        <p style="font-size: 1.3em; font-weight: 800; color: #6b7280;">Belum ada data laporan</p>
+        <p style="font-size: 1em; margin-top: 10px; color: #9ca3af;">Data akan muncul ketika siswa mengirimkan laporan</p>
+       </div>
+      </div>
      </div>
     </div>
    </div>
@@ -352,7 +412,26 @@
     </div>
    </div>
   </div><!-- Toast Notification -->
-  <div id="toast" style="display: none; position: fixed; top: 3%; right: 3%; background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 3% 4%; border-radius: 15px; box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4); z-index: 2000; font-weight: 700; animation: slideIn 0.3s ease-out;"></div>
+  <div id="toast" style="display: none; position: fixed; top: 3%; right: 3%; background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 3% 4%; border-radius: 15px; box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4); z-index: 2000; font-weight: 700; animation: slideIn 0.3s ease-out;"></div><!-- Modal Kata Sandi Guru -->
+  <div id="passwordModal" class="modal-backdrop" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1000; padding: 2%;">
+   <div class="glassmorphism card-shadow" style="max-width: 500px; margin: 10% auto; border-radius: 30px; padding: 5%; position: relative;">
+    <div style="background: linear-gradient(135deg, #f59e0b, #d97706); border-radius: 20px; padding: 4%; margin-bottom: 5%; text-align: center;">
+     <div style="font-size: 3em; margin-bottom: 10px;">
+      🔐
+     </div>
+     <h2 style="font-size: 1.8em; font-weight: 900; color: #ffffff; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">Masukkan Kata Sandi Guru</h2>
+    </div>
+    <form id="passwordForm">
+     <div class="w-full" style="margin-bottom: 4%;"><label for="guruPassword" style="display: block; font-size: 1em; font-weight: 700; color: #374151; margin-bottom: 3%;"> Kata Sandi </label> <input type="password" id="guruPassword" required class="w-full input-focus" style="padding: 4%; border: 3px solid #e5e7eb; border-radius: 16px; font-size: 1.05em; transition: all 0.3s; background: #fafafa;" placeholder="Masukkan kata sandi">
+     </div>
+     <div id="passwordError" style="display: none; margin-bottom: 3%; padding: 3%; background: linear-gradient(135deg, #fee2e2, #fecaca); border-radius: 15px; text-align: center; border: 2px solid #ef4444;">
+      <p style="color: #991b1b; font-weight: 700; font-size: 1em;">❌ Kata sandi salah!</p>
+     </div>
+     <div class="w-full" style="display: flex; gap: 3%;"><button type="submit" style="flex: 1; background: linear-gradient(135deg, #f59e0b, #d97706); color: #ffffff; font-size: 1.2em; font-weight: 900; padding: 4%; border: none; border-radius: 20px; cursor: pointer; transition: all 0.3s; box-shadow: 0 12px 24px rgba(245, 158, 11, 0.4);" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 18px 36px rgba(245, 158, 11, 0.5)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 12px 24px rgba(245, 158, 11, 0.4)'"> 🔓 Masuk </button> <button type="button" id="cancelPasswordBtn" style="flex: 0.35; background: linear-gradient(135deg, #6b7280, #4b5563); color: #ffffff; font-size: 1.2em; font-weight: 900; padding: 4%; border: none; border-radius: 20px; cursor: pointer; transition: all 0.3s; box-shadow: 0 8px 16px rgba(107, 114, 128, 0.3);" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 12px 24px rgba(107, 114, 128, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 16px rgba(107, 114, 128, 0.3)'"> ✖️ Batal </button>
+     </div>
+    </form>
+   </div>
+  </div>
   <script>
     // LocalStorage functions
     const STORAGE_KEY = 'smpit_muraja_tasks';
@@ -372,7 +451,55 @@
     let deleteClickCount = {};
     let currentSort = 'tanggal';
     let searchQuery = '';
+    let currentMode = 'siswa';
+    let guruFilterKelas = 'semua';
+    let guruFilterPeriode = 'semua';
+    let isGuruAuthenticated = false;
+    const GURU_PASSWORD = 'guru123';
 
+    function switchMode(mode) {
+      if (mode === 'guru' && !isGuruAuthenticated) {
+        // Show password modal
+        document.getElementById('passwordModal').style.display = 'flex';
+        document.getElementById('guruPassword').value = '';
+        document.getElementById('passwordError').style.display = 'none';
+        return;
+      }
+      
+      currentMode = mode;
+      
+      document.querySelectorAll('.mode-btn').forEach(btn => {
+        btn.classList.remove('active');
+        btn.style.background = 'transparent';
+        btn.style.color = '#ffffff';
+        btn.style.boxShadow = 'none';
+      });
+      
+      if (mode === 'siswa') {
+        document.getElementById('modeSiswa').classList.add('active');
+        document.getElementById('modeSiswa').style.background = '#ffffff';
+        document.getElementById('modeSiswa').style.color = '#6366f1';
+        document.getElementById('modeSiswa').style.boxShadow = '0 4px 10px rgba(0,0,0,0.1)';
+        
+        document.getElementById('section-guru').style.display = 'none';
+        document.getElementById('tab-form').style.display = 'block';
+        document.getElementById('floatingBtn').style.display = 'block';
+        switchTab('form');
+      } else if (mode === 'guru') {
+        document.getElementById('modeGuru').classList.add('active');
+        document.getElementById('modeGuru').style.background = '#ffffff';
+        document.getElementById('modeGuru').style.color = '#f59e0b';
+        document.getElementById('modeGuru').style.boxShadow = '0 4px 10px rgba(0,0,0,0.1)';
+        
+        document.getElementById('section-form').style.display = 'none';
+        document.getElementById('section-semua').style.display = 'none';
+        document.getElementById('section-guru').style.display = 'block';
+        document.getElementById('tab-form').style.display = 'none';
+        document.getElementById('floatingBtn').style.display = 'none';
+        renderGuruView();
+      }
+    }
+    
     function updateStatistics() {
       const total = allTasks.length;
       const mapelDiniyyah = allTasks.filter(t => t.prioritas).length;
@@ -641,6 +768,121 @@
       }, 3000);
     }
 
+    function renderGuruView() {
+      const filteredTasks = getGuruFilteredTasks();
+      const container = document.getElementById('guru-table-container');
+      const emptyState = document.getElementById('guruEmptyState');
+      
+      // Update stats
+      const uniqueStudents = [...new Set(filteredTasks.map(t => t.nama_siswa))];
+      const totalLaporan = filteredTasks.length;
+      const diniyyahCount = filteredTasks.filter(t => t.prioritas).length;
+      
+      document.getElementById('guru-stat-siswa').textContent = uniqueStudents.length;
+      document.getElementById('guru-stat-laporan').textContent = totalLaporan;
+      document.getElementById('guru-stat-diniyyah').textContent = diniyyahCount;
+      
+      if (filteredTasks.length === 0) {
+        container.innerHTML = '';
+        emptyState.style.display = 'block';
+        return;
+      }
+      
+      emptyState.style.display = 'none';
+      
+      // Group by student
+      const studentData = {};
+      filteredTasks.forEach(task => {
+        if (!studentData[task.nama_siswa]) {
+          studentData[task.nama_siswa] = {
+            nama: task.nama_siswa,
+            total: 0,
+            diniyyah: 0,
+            umum: 0,
+            orangtua: 0,
+            latestDate: task.tanggal
+          };
+        }
+        studentData[task.nama_siswa].total++;
+        if (task.prioritas) studentData[task.nama_siswa].diniyyah++;
+        if (task.estimasi_waktu) studentData[task.nama_siswa].umum++;
+        if (task.tugas_orangtua) studentData[task.nama_siswa].orangtua++;
+        if (new Date(task.tanggal) > new Date(studentData[task.nama_siswa].latestDate)) {
+          studentData[task.nama_siswa].latestDate = task.tanggal;
+        }
+      });
+      
+      const students = Object.values(studentData).sort((a, b) => b.total - a.total);
+      
+      let html = `
+        <div style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
+          <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+              <tr style="background: linear-gradient(135deg, #f59e0b, #d97706); color: white;">
+                <th style="padding: 15px; text-align: left; font-weight: 800;">👤 Nama Siswa</th>
+                <th style="padding: 15px; text-align: center; font-weight: 800;">📊 Total</th>
+                <th style="padding: 15px; text-align: center; font-weight: 800;">📚 Diniyyah</th>
+                <th style="padding: 15px; text-align: center; font-weight: 800;">📖 Umum</th>
+                <th style="padding: 15px; text-align: center; font-weight: 800;">❤️ Orangtua</th>
+                <th style="padding: 15px; text-align: center; font-weight: 800;">📅 Terakhir</th>
+              </tr>
+            </thead>
+            <tbody>
+      `;
+      
+      students.forEach((student, index) => {
+        const bgColor = index % 2 === 0 ? '#f9fafb' : '#ffffff';
+        
+        html += `
+          <tr style="background: ${bgColor}; border-bottom: 1px solid #e5e7eb; transition: all 0.3s;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='${bgColor}'">
+            <td style="padding: 15px; font-weight: 700; color: #374151;">${student.nama}</td>
+            <td style="padding: 15px; text-align: center; font-weight: 800; color: #6366f1; font-size: 1.1em;">${student.total}</td>
+            <td style="padding: 15px; text-align: center; font-weight: 700; color: #8b5cf6;">${student.diniyyah}</td>
+            <td style="padding: 15px; text-align: center; font-weight: 700; color: #f59e0b;">${student.umum}</td>
+            <td style="padding: 15px; text-align: center; font-weight: 700; color: #ec4899;">${student.orangtua}</td>
+            <td style="padding: 15px; text-align: center; font-weight: 600; color: #6b7280; font-size: 0.9em;">${new Date(student.latestDate).toLocaleDateString('id-ID', {day: 'numeric', month: 'short'})}</td>
+          </tr>
+        `;
+      });
+      
+      html += `
+            </tbody>
+          </table>
+        </div>
+      `;
+      
+      container.innerHTML = html;
+    }
+    
+    function getGuruFilteredTasks() {
+      let filtered = allTasks;
+      
+      // Filter by period
+      if (guruFilterPeriode !== 'semua') {
+        const now = new Date();
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        
+        filtered = filtered.filter(task => {
+          const taskDate = new Date(task.tanggal);
+          
+          if (guruFilterPeriode === 'hari') {
+            return taskDate >= today;
+          } else if (guruFilterPeriode === 'minggu') {
+            const weekAgo = new Date(today);
+            weekAgo.setDate(weekAgo.getDate() - 7);
+            return taskDate >= weekAgo;
+          } else if (guruFilterPeriode === 'bulan') {
+            const monthAgo = new Date(today);
+            monthAgo.setMonth(monthAgo.getMonth() - 1);
+            return taskDate >= monthAgo;
+          }
+          return true;
+        });
+      }
+      
+      return filtered;
+    }
+    
     function exportData() {
       const csvContent = "data:text/csv;charset=utf-8," 
         + "Nama,Judul,Mapel Diniyyah,Mapel Umum,Membantu Orangtua,Tanggal\n"
@@ -660,8 +902,44 @@
     }
 
     // Event Listeners
+    document.getElementById('modeSiswa').addEventListener('click', () => switchMode('siswa'));
+    document.getElementById('modeGuru').addEventListener('click', () => switchMode('guru'));
+    
+    // Password Form Handler
+    document.getElementById('passwordForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const password = document.getElementById('guruPassword').value;
+      
+      if (password === GURU_PASSWORD) {
+        isGuruAuthenticated = true;
+        document.getElementById('passwordModal').style.display = 'none';
+        switchMode('guru');
+        showToast('✅ Berhasil masuk Mode Guru');
+      } else {
+        document.getElementById('passwordError').style.display = 'block';
+        document.getElementById('guruPassword').value = '';
+        document.getElementById('guruPassword').focus();
+      }
+    });
+    
+    document.getElementById('cancelPasswordBtn').addEventListener('click', () => {
+      document.getElementById('passwordModal').style.display = 'none';
+      document.getElementById('guruPassword').value = '';
+      document.getElementById('passwordError').style.display = 'none';
+    });
+    
     document.getElementById('tab-form').addEventListener('click', () => switchTab('form'));
     document.getElementById('tab-semua').addEventListener('click', () => switchTab('semua'));
+    
+    document.getElementById('filterKelas').addEventListener('change', (e) => {
+      guruFilterKelas = e.target.value;
+      renderGuruView();
+    });
+    
+    document.getElementById('filterPeriode').addEventListener('change', (e) => {
+      guruFilterPeriode = e.target.value;
+      renderGuruView();
+    });
 
     document.getElementById('searchInput').addEventListener('input', (e) => {
       searchQuery = e.target.value;
@@ -735,5 +1013,5 @@
     // Initial render
     renderTasks();
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a36ed1e45e10884',t:'MTc2Mzk2NjU0NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a3761486031ce69',t:'MTc2Mzk3MTMwNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
