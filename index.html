@@ -11,7 +11,7 @@
     }
     
     * {
-      font-size: 14px;
+      font-size: 11px;
     }
     
     @keyframes fadeIn {
@@ -271,13 +271,16 @@
         <div style="font-size: 4em; animation: pulse 3s ease-in-out infinite;">
          📚
         </div>
-        <h1 id="app-title" style="font-size: 2.5em; font-weight: 900; color: #ffffff; margin: 0; text-shadow: 3px 3px 8px rgba(0,0,0,0.4); letter-spacing: -1px; background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">LAPORAN TUGAS WAJIB<br>
+        <h1 id="app-title" style="font-size: 2.5em; font-weight: 900; color: #ffffff; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); letter-spacing: -1px;">LAPORAN TUGAS WAJIB<br>
          SMPIT BAITUL 'ILMI</h1>
         <div style="font-size: 4em; animation: pulse 3s ease-in-out infinite;">
          📖
         </div>
        </div>
-       <p id="app-subtitle" style="font-size: 1.2em; color: #ffffff; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); font-weight: 600; letter-spacing: 0.5px;">✨ Sistem Pencatatan Muraja'ah Harian Siswa ✨</p><!-- Mode Toggle - Repositioned -->
+       <p id="app-subtitle" style="font-size: 1.2em; color: #ffffff; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); font-weight: 600; letter-spacing: 0.5px;">✨ Sistem Pencatatan Muraja'ah Harian Siswa ✨</p>
+       <div style="margin-top: 1.5%; padding: 2% 3%; background: rgba(255, 255, 255, 0.25); border-radius: 15px; backdrop-filter: blur(10px); border: 2px solid rgba(255, 255, 255, 0.4);">
+        <p style="font-size: 1.1em; color: #ffffff; font-weight: 800; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">👨‍🏫 Wali Kelas 9D : Abu Supandi</p>
+       </div><!-- Mode Toggle - Repositioned -->
        <div style="margin-top: 2%; display: flex; gap: 15px; justify-content: center; align-items: center;"><button id="modeSiswa" class="mode-btn active" style="padding: 12px 30px; border: none; border-radius: 15px; cursor: pointer; font-weight: 800; transition: all 0.3s; background: #ffffff; color: #6366f1; box-shadow: 0 8px 20px rgba(0,0,0,0.15); font-size: 1.1em;"> 👨‍🎓 Siswa </button> <button id="modeGuru" class="mode-btn" style="padding: 12px 30px; border: none; border-radius: 15px; cursor: pointer; font-weight: 800; transition: all 0.3s; background: rgba(255, 255, 255, 0.2); color: #ffffff; border: 2px solid rgba(255, 255, 255, 0.4); font-size: 1.1em;"> 👨‍🏫 Guru </button>
        </div>
       </div>
@@ -387,7 +390,7 @@
        <div style="background: linear-gradient(135deg, #fce7f3, #fbcfe8); padding: 5%; border-radius: 20px; border: 3px solid #f9a8d4;">
         <div style="display: flex; align-items: center; gap: 3%; margin-bottom: 3%;">
          <div style="font-size: 2.5em;">
-          📖
+          ���
          </div>
          <h3 style="font-size: 1.3em; font-weight: 800; color: #9f1239; margin: 0;">Mapel Umum</h3>
         </div>
@@ -477,7 +480,7 @@
        <div id="semua-container"></div>
        <div id="emptyState" style="text-align: center; padding: 10%; color: #9ca3af;">
         <div style="font-size: 5em; margin-bottom: 3%;">
-         📋
+         ���
         </div>
         <p style="font-size: 1.5em; font-weight: 800; color: #6b7280;">Belum ada laporan.</p>
         <p style="font-size: 1.1em; margin-top: 2%; color: #9ca3af;">Tambahkan laporan muraja'ah pertama Anda!</p>
@@ -491,7 +494,7 @@
         <h2 style="font-size: 2em; font-weight: 900; color: #ffffff; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); position: relative;">👨‍🏫 Dashboard Guru</h2>
         <p style="color: #fef3c7; margin-top: 10px; font-weight: 600; position: relative;">Analisis &amp; Monitoring Muraja'ah Siswa</p>
        </div><!-- Filter Guru -->
-       <div style="display: flex; gap: 15px; margin-bottom: 25px; flex-wrap: wrap;"><select id="filterKelas" style="padding: 10px 15px; border: 2px solid #e5e7eb; border-radius: 12px; font-weight: 600; cursor: pointer; background: white; flex: 1; min-width: 200px;"> <option value="semua">🏫 Semua Kelas</option> <option value="7A">Kelas 7A</option> <option value="7B">Kelas 7B</option> <option value="8A">Kelas 8A</option> <option value="8B">Kelas 8B</option> <option value="9A">Kelas 9A</option> <option value="9B">Kelas 9B</option> </select> <select id="filterPeriode" style="padding: 10px 15px; border: 2px solid #e5e7eb; border-radius: 12px; font-weight: 600; cursor: pointer; background: white; flex: 1; min-width: 200px;"> <option value="hari">📅 Hari Ini</option> <option value="minggu">📆 Minggu Ini</option> <option value="bulan">📊 Bulan Ini</option> <option value="semua">🗓️ Semua Periode</option> </select>
+       <div style="display: flex; gap: 15px; margin-bottom: 25px; flex-wrap: wrap;"><select id="filterKelas" style="padding: 10px 15px; border: 2px solid #e5e7eb; border-radius: 12px; font-weight: 600; cursor: pointer; background: white; flex: 1; min-width: 200px;"> <option value="semua">🏫 Semua Kelas</option> <option value="7A">Kelas 7A</option> <option value="7B">Kelas 7B</option> <option value="8A">Kelas 8A</option> <option value="8B">Kelas 8B</option> <option value="9A">Kelas 9A</option> <option value="9B">Kelas 9B</option> </select> <select id="filterPeriode" style="padding: 10px 15px; border: 2px solid #e5e7eb; border-radius: 12px; font-weight: 600; cursor: pointer; background: white; flex: 1; min-width: 200px;"> <option value="hari">📅 Hari Ini</option> <option value="minggu">📆 Minggu Ini</option> <option value="bulan">📊 Bulan Ini</option> <option value="semua">��️ Semua Periode</option> </select>
        </div><!-- Stats Guru -->
        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 25px;">
         <div style="background: linear-gradient(135deg, #3b82f6, #2563eb); padding: 20px; border-radius: 15px; text-align: center; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);">
@@ -804,7 +807,7 @@
         showToast('📚 Diurutkan berdasarkan Mapel Diniyyah');
       } else {
         currentSort = 'tanggal';
-        showToast('📅 Diurutkan berdasarkan Tanggal');
+        showToast('�� Diurutkan berdasarkan Tanggal');
       }
       renderTasks();
     }
@@ -871,7 +874,7 @@
       const isDeletePending = deleteClickCount[task.id] === 1;
       
       return `
-        <div class="task-item slide-in" data-task-id="${task.id}" style="background: #ffffff; border-radius: 18px; padding: 3.5%; margin-bottom: 2%; border-left: 6px solid #6366f1; ${isDeletePending ? 'border: 3px solid #ef4444; box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);' : 'box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);'}">
+        <div class="task-item slide-in" data-task-id="${task.id}" style="background: #ffffff; border-radius: 18px; padding: 3.5%; margin-bottom: 2%; border: 2px solid #e5e7eb; ${isDeletePending ? 'border: 3px solid #ef4444; box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);' : 'box-shadow: none;'}">
           <div style="display: flex; justify-content: space-between; align-items: start;">
             <div style="flex: 1;" onclick="showTaskDetail('${task.id}')">
               <div style="display: flex; align-items: center; gap: 2%; margin-bottom: 2%; flex-wrap: wrap;">
@@ -1255,5 +1258,5 @@
     // Initial render
     renderTasks();
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a3791d2a0218bc6',t:'MTc2Mzk3MzI5Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a37b0da47c8ccce',t:'MTc2Mzk3NDU2My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
