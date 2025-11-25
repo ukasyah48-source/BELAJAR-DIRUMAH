@@ -1501,3 +1501,56 @@
   </script>
  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a3ce9fb7503fcea',t:'MTc2NDAyOTMzMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
+<form id="laporanForm">
+  <label>Nama:</label>
+  <input type="text" id="nama" required><br><br>
+
+  <label>Kelas:</label>
+  <input type="text" id="kelas" required><br><br>
+
+  <label>Tanggal:</label>
+  <input type="date" id="tanggal" required><br><br>
+
+  <label>Tugas yang dikerjakan:</label>
+  <input type="text" id="tugas" required><br><br>
+
+  <label>Keterangan tambahan:</label>
+  <input type="text" id="keterangan"><br><br>
+
+  <button type="submit">Kirim Laporan</button>
+</form>
+
+<p id="status"></p>
+
+<script>
+  const scriptURL =
+    "https://script.google.com/macros/s/AKfycbwHh76Js5fx3ws0cN8B_Z2V9zCeBjoCm0AILysxCH9OI7e6pe5xfom3g1VSD0A15UQ/exec";
+
+  const form = document.getElementById("laporanForm");
+  const status = document.getElementById("status");
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const data = {
+      nama: document.getElementById("nama").value,
+      kelas: document.getElementById("kelas").value,
+      tanggal: document.getElementById("tanggal").value,
+      tugas: document.getElementById("tugas").value,
+      keterangan: document.getElementById("keterangan").value,
+    };
+
+    fetch(scriptURL, {
+      method: "POST",
+      body: JSON.stringify(data),
+    })
+      .then(() => {
+        status.innerText = "Laporan berhasil dikirim!";
+        form.reset();
+      })
+      .catch(() => {
+        status.innerText = "Gagal mengirim. Coba lagi.";
+      });
+  });
+</script>
+
