@@ -1521,6 +1521,33 @@
 </form>
 
 <p id="status"></p>
+<script>
+document.getElementById("laporanForm").addEventListener("submit", function(e) {
+    e.preventDefault(); // Cegah reload
+
+    const url = "https://script.google.com/macros/s/AKfycbwHh76Js5fx3ws0cN8B_Z2V9zCeBjoCm0AILysxCH9OI7e6pe5xfom3g1VSD0A15UQ/exec";
+
+    let data = {
+        nama: document.getElementById("nama").value,
+        kelas: document.getElementById("kelas").value,
+        tanggal: document.getElementById("tanggal").value,
+        tugas: document.getElementById("tugas").value,
+        keterangan: document.getElementById("keterangan").value
+    };
+
+    fetch(url, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+    }).then(() => {
+        document.getElementById("status").innerHTML = "✅ Laporan berhasil dikirim!";
+        document.getElementById("laporanForm").reset();
+    }).catch(() => {
+        document.getElementById("status").innerHTML = "❌ Gagal mengirim.";
+    });
+});
+</script>
 
 <script>
   const scriptURL =
@@ -1553,4 +1580,5 @@
       });
   });
 </script>
+
 
