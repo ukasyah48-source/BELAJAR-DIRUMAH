@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="id">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Guru - Laporan Muraja'ah</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+    
+    * {
+      font-size: 16px;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.4s ease-out;
+    }
+    
+    .spinner {
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-top: 4px solid white;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+
+    .table-container {
+      overflow-x: auto;
+      border-radius: 12px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: white;
+      padding: 16px;
+      text-align: left;
+      font-weight: 800;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    td {
+      padding: 14px 16px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    tr:hover {
+      background: #f9fafb;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.85em;
+      font-weight: 700;
+    }
+
+    .badge-success {
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    .badge-danger {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="/_sdk/element_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="w-full min-h-full"><!-- Login Screen -->
+  <div id="loginScreen" class="w-full min-h-full" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; padding: 5%;">
+   <div style="background: white; border-radius: 30px; padding: 5%; max-width: 450px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
+    <div style="text-align: center; margin-bottom: 8%;">
+     <div style="font-size: 5em; margin-bottom: 4%;">
+      🔐
+     </div>
+     <h1 style="font-size: 2em; font-weight: 900; color: #374151; margin-bottom: 2%;">Dashboard Guru</h1>
+     <p style="color: #6b7280; font-weight: 600;">Masukkan password untuk akses</p>
+    </div>
+    <form id="loginForm">
+     <div style="margin-bottom: 6%;"><label for="password" style="display: block; font-weight: 700; color: #374151; margin-bottom: 3%;">Password</label> <input type="password" id="password" required style="width: 100%; padding: 4%; border: 3px solid #e5e7eb; border-radius: 12px; font-size: 1.1em; transition: all 0.3s;" placeholder="Masukkan password">
+     </div><button type="submit" style="width: 100%; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; font-size: 1.2em; font-weight: 800; padding: 4%; border: none; border-radius: 12px; cursor: pointer; transition: all 0.3s; box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);"> 🔓 Login </button>
+    </form>
+    <div id="loginError" style="display: none; margin-top: 4%; padding: 3%; background: #fee2e2; color: #991b1b; border-radius: 8px; font-weight: 700; text-align: center;">
+     ❌ Password salah!
+    </div>
+   </div>
+  </div><!-- Dashboard Screen -->
+  <div id="dashboardScreen" style="display: none;" class="w-full min-h-full">
+   <div class="w-full" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%); position: relative; overflow: hidden;">
+    <div style="position: absolute; top: -10%; left: -5%; width: 40%; height: 40%; background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%); border-radius: 50%; animation: pulse 8s ease-in-out infinite;"></div>
+    <div style="position: absolute; bottom: -10%; right: -5%; width: 50%; height: 50%; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%); border-radius: 50%; animation: pulse 10s ease-in-out infinite reverse;"></div>
+    <div class="w-full" style="padding: 2% 3%; position: relative; z-index: 1;">
+     <div class="w-full" style="max-width: 1400px; margin: 0 auto;"><!-- Header -->
+      <header class="w-full fade-in" style="margin-bottom: 3%;">
+       <div style="background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(20px); border-radius: 30px; padding: 3% 4%; box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2); border: 2px solid rgba(255, 255, 255, 0.3); display: flex; justify-content: space-between; align-items: center;">
+        <div>
+         <h1 style="font-size: 2.5em; font-weight: 900; color: #ffffff; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">📊 Dashboard Guru</h1>
+         <p style="font-size: 1.1em; color: #ffffff; margin-top: 1%; font-weight: 600; text-shadow: 1px 1px 3px rgba(0,0,0,0.3);">Laporan Muraja'ah Kelas 9D - Abu Supandi</p>
+        </div><button id="logoutBtn" style="background: rgba(239, 68, 68, 0.9); color: white; padding: 3% 5%; border: none; border-radius: 12px; font-weight: 800; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);"> 🚪 Logout </button>
+       </div>
+      </header><!-- Stats Cards -->
+      <div class="w-full fade-in" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2%; margin-bottom: 3%;"><!-- Total Laporan -->
+       <div style="background: linear-gradient(135deg, #6366f1, #8b5cf6); border-radius: 20px; padding: 5%; color: white; box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);">
+        <div style="font-size: 3em; margin-bottom: 3%;">
+         📝
+        </div>
+        <div style="font-size: 2.5em; font-weight: 900; margin-bottom: 2%;" id="totalLaporan">
+         0
+        </div>
+        <div style="font-size: 0.95em; opacity: 0.9; font-weight: 600;">
+         Total Laporan
+        </div>
+       </div><!-- Siswa Aktif -->
+       <div style="background: linear-gradient(135deg, #10b981, #059669); border-radius: 20px; padding: 5%; color: white; box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);">
+        <div style="font-size: 3em; margin-bottom: 3%;">
+         👨‍🎓
+        </div>
+        <div style="font-size: 2.5em; font-weight: 900; margin-bottom: 2%;" id="siswaAktif">
+         0
+        </div>
+        <div style="font-size: 0.95em; opacity: 0.9; font-weight: 600;">
+         Siswa Aktif
+        </div>
+       </div><!-- Hari Ini -->
+       <div style="background: linear-gradient(135deg, #f59e0b, #d97706); border-radius: 20px; padding: 5%; color: white; box-shadow: 0 10px 30px rgba(245, 158, 11, 0.4);">
+        <div style="font-size: 3em; margin-bottom: 3%;">
+         📅
+        </div>
+        <div style="font-size: 2.5em; font-weight: 900; margin-bottom: 2%;" id="laporanHariIni">
+         0
+        </div>
+        <div style="font-size: 0.95em; opacity: 0.9; font-weight: 600;">
+         Laporan Hari Ini
+        </div>
+       </div><!-- Minggu Ini -->
+       <div style="background: linear-gradient(135deg, #ec4899, #db2777); border-radius: 20px; padding: 5%; color: white; box-shadow: 0 10px 30px rgba(236, 72, 153, 0.4);">
+        <div style="font-size: 3em; margin-bottom: 3%;">
+         📊
+        </div>
+        <div style="font-size: 2.5em; font-weight: 900; margin-bottom: 2%;" id="laporanMingguIni">
+         0
+        </div>
+        <div style="font-size: 0.95em; opacity: 0.9; font-weight: 600;">
+         Laporan Minggu Ini
+        </div>
+       </div>
+      </div><!-- Chart -->
+      <div class="w-full fade-in" style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-radius: 24px; padding: 4%; margin-bottom: 3%; border: 3px solid rgba(255, 255, 255, 0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
+       <h2 style="font-size: 1.5em; font-weight: 800; color: #374151; margin-bottom: 4%;">📈 Grafik Aktivitas 7 Hari Terakhir</h2>
+       <canvas id="activityChart" style="max-height: 300px;"></canvas>
+      </div><!-- Filter & Export -->
+      <div class="w-full fade-in" style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-radius: 24px; padding: 3%; margin-bottom: 3%; border: 3px solid rgba(255, 255, 255, 0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.15); display: flex; justify-content: space-between; align-items: center;">
+       <div style="display: flex; gap: 2%; align-items: center;"><button id="filterSemua" class="filter-btn" style="background: #6366f1; color: white; padding: 2% 4%; border: none; border-radius: 10px; font-weight: 700; cursor: pointer;">📋 Semua</button> <button id="filterHariIni" class="filter-btn" style="background: #e5e7eb; color: #374151; padding: 2% 4%; border: none; border-radius: 10px; font-weight: 700; cursor: pointer;">📅 Hari Ini</button> <button id="filterMingguIni" class="filter-btn" style="background: #e5e7eb; color: #374151; padding: 2% 4%; border: none; border-radius: 10px; font-weight: 700; cursor: pointer;">📊 Minggu Ini</button> <button id="filterBulanIni" class="filter-btn" style="background: #e5e7eb; color: #374151; padding: 2% 4%; border: none; border-radius: 10px; font-weight: 700; cursor: pointer;">📆 Bulan Ini</button>
+       </div>
+       <div style="display: flex; gap: 2%;"><button id="refreshBtn" style="background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 2% 4%; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);">🔄 Refresh</button> <button id="exportBtn" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: white; padding: 2% 4%; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);">📥 Export CSV</button>
+       </div>
+      </div><!-- Table -->
+      <div class="w-full fade-in" style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-radius: 24px; padding: 4%; margin-bottom: 3%; border: 3px solid rgba(255, 255, 255, 0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
+       <h2 style="font-size: 1.5em; font-weight: 800; color: #374151; margin-bottom: 4%;">📋 Daftar Laporan Siswa</h2>
+       <div id="loadingIndicator" style="text-align: center; padding: 10%;">
+        <div class="spinner"></div>
+        <p style="margin-top: 5%; color: #6b7280; font-weight: 600;">Memuat data...</p>
+       </div>
+       <div id="tableContainer" style="display: none;" class="table-container">
+        <table>
+         <thead>
+          <tr>
+           <th>No</th>
+           <th>Waktu</th>
+           <th>Nama Siswa</th>
+           <th>Muraja'ah Quran</th>
+           <th>Mapel Diniyyah</th>
+           <th>Mapel Umum</th>
+           <th>Membantu Orangtua</th>
+          </tr>
+         </thead>
+         <tbody id="tableBody">
+         </tbody>
+        </table>
+       </div>
+       <div id="emptyState" style="display: none; text-align: center; padding: 10%;">
+        <div style="font-size: 5em; margin-bottom: 3%;">
+         📭
+        </div>
+        <h3 style="font-size: 1.5em; font-weight: 800; color: #374151; margin-bottom: 2%;">Belum Ada Laporan</h3>
+        <p style="color: #6b7280; font-weight: 600;">Laporan siswa akan muncul di sini setelah mereka submit</p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+  <script>
+    // ⚠️ KONFIGURASI - GANTI SESUAI KEBUTUHAN
+    const ADMIN_PASSWORD = 'guru123'; // Ganti password di sini
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw4OOLVGennePtcQPyo3L-wQFWjd1zBHHLfSDVERYvXcHcnRrbFBIGes4cWMDcfCcAR1Q/exec
+'; // Ganti dengan URL Google Script
+
+    let allData = [];
+    let currentFilter = 'semua';
+    let activityChart = null;
+
+    // Login Handler
+    document.getElementById('loginForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const password = document.getElementById('password').value;
+      
+      if (password === ADMIN_PASSWORD) {
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('dashboardScreen').style.display = 'block';
+        loadData();
+      } else {
+        document.getElementById('loginError').style.display = 'block';
+        setTimeout(() => {
+          document.getElementById('loginError').style.display = 'none';
+        }, 3000);
+      }
+    });
+
+    // Logout Handler
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      document.getElementById('dashboardScreen').style.display = 'none';
+      document.getElementById('loginScreen').style.display = 'flex';
+      document.getElementById('password').value = '';
+    });
+
+    // Load Data
+    async function loadData() {
+      if (GOOGLE_SCRIPT_URL === 'PASTE_YOUR_GOOGLE_SCRIPT_URL_HERE') {
+        alert('❌ Google Script URL belum dikonfigurasi! Silakan hubungi administrator.');
+        return;
+      }
+
+      document.getElementById('loadingIndicator').style.display = 'block';
+      document.getElementById('tableContainer').style.display = 'none';
+      document.getElementById('emptyState').style.display = 'none';
+
+      try {
+        const response = await fetch(GOOGLE_SCRIPT_URL);
+        const result = await response.json();
+
+        if (result.result === 'success') {
+          allData = result.data.reverse(); // Latest first
+          updateStats();
+          updateChart();
+          renderTable();
+        } else {
+          throw new Error(result.message || 'Failed to load data');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('❌ Gagal memuat data. Pastikan Google Script sudah di-deploy dengan benar.');
+      } finally {
+        document.getElementById('loadingIndicator').style.display = 'none';
+      }
+    }
+
+    // Update Statistics
+    function updateStats() {
+      const today = new Date().toLocaleDateString('id-ID');
+      const thisWeekStart = new Date();
+      thisWeekStart.setDate(thisWeekStart.getDate() - 7);
+
+      const todayData = allData.filter(item => {
+        const itemDate = new Date(item.waktu.split(' ')[0].split('/').reverse().join('-'));
+        return itemDate.toLocaleDateString('id-ID') === today;
+      });
+
+      const thisWeekData = allData.filter(item => {
+        const itemDate = parseDate(item.waktu);
+        return itemDate >= thisWeekStart;
+      });
+
+      const uniqueStudents = new Set(allData.map(item => item.nama_siswa)).size;
+
+      document.getElementById('totalLaporan').textContent = allData.length;
+      document.getElementById('siswaAktif').textContent = uniqueStudents;
+      document.getElementById('laporanHariIni').textContent = todayData.length;
+      document.getElementById('laporanMingguIni').textContent = thisWeekData.length;
+    }
+
+    // Update Chart
+    function updateChart() {
+      const ctx = document.getElementById('activityChart').getContext('2d');
+      
+      const last7Days = [];
+      const counts = [];
+      
+      for (let i = 6; i >= 0; i--) {
+        const date = new Date();
+        date.setDate(date.getDate() - i);
+        const dateStr = date.toLocaleDateString('id-ID', { day: '2-digit', month: 'short' });
+        last7Days.push(dateStr);
+        
+        const count = allData.filter(item => {
+          const itemDate = parseDate(item.waktu);
+          return itemDate.toDateString() === date.toDateString();
+        }).length;
+        
+        counts.push(count);
+      }
+
+      if (activityChart) {
+        activityChart.destroy();
+      }
+
+      activityChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: last7Days,
+          datasets: [{
+            label: 'Jumlah Laporan',
+            data: counts,
+            borderColor: '#6366f1',
+            backgroundColor: 'rgba(99, 102, 241, 0.1)',
+            borderWidth: 3,
+            tension: 0.4,
+            fill: true,
+            pointRadius: 6,
+            pointBackgroundColor: '#6366f1',
+            pointBorderColor: '#fff',
+            pointBorderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          plugins: {
+            legend: {
+              display: false
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: {
+                stepSize: 1
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // Render Table
+    function renderTable() {
+      const tbody = document.getElementById('tableBody');
+      let filteredData = getFilteredData();
+
+      if (filteredData.length === 0) {
+        document.getElementById('emptyState').style.display = 'block';
+        document.getElementById('tableContainer').style.display = 'none';
+        return;
+      }
+
+      document.getElementById('emptyState').style.display = 'none';
+      document.getElementById('tableContainer').style.display = 'block';
+
+      tbody.innerHTML = filteredData.map((item, index) => `
+        <tr>
+          <td style="font-weight: 700;">${index + 1}</td>
+          <td style="font-weight: 600;">${item.waktu}</td>
+          <td style="font-weight: 700; color: #6366f1;">${item.nama_siswa}</td>
+          <td>${item.judul_tugas}</td>
+          <td><span class="badge ${item.mapel_diniyyah === 'Ya' ? 'badge-success' : 'badge-danger'}">${item.mapel_diniyyah}</span></td>
+          <td><span class="badge ${item.mapel_umum === 'Ya' ? 'badge-success' : 'badge-danger'}">${item.mapel_umum}</span></td>
+          <td><span class="badge ${item.membantu_orangtua === 'Ya' ? 'badge-success' : 'badge-danger'}">${item.membantu_orangtua}</span></td>
+        </tr>
+      `).join('');
+    }
+
+    // Filter Data
+    function getFilteredData() {
+      const now = new Date();
+      
+      if (currentFilter === 'hariIni') {
+        return allData.filter(item => {
+          const itemDate = parseDate(item.waktu);
+          return itemDate.toDateString() === now.toDateString();
+        });
+      } else if (currentFilter === 'mingguIni') {
+        const weekAgo = new Date();
+        weekAgo.setDate(weekAgo.getDate() - 7);
+        return allData.filter(item => {
+          const itemDate = parseDate(item.waktu);
+          return itemDate >= weekAgo;
+        });
+      } else if (currentFilter === 'bulanIni') {
+        const monthAgo = new Date();
+        monthAgo.setDate(monthAgo.getDate() - 30);
+        return allData.filter(item => {
+          const itemDate = parseDate(item.waktu);
+          return itemDate >= monthAgo;
+        });
+      }
+      
+      return allData;
+    }
+
+    // Parse Date from Indonesian format
+    function parseDate(dateStr) {
+      const [datePart] = dateStr.split(' ');
+      const [day, month, year] = datePart.split('/');
+      return new Date(`${year}-${month}-${day}`);
+    }
+
+    // Filter Buttons
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        document.querySelectorAll('.filter-btn').forEach(b => {
+          b.style.background = '#e5e7eb';
+          b.style.color = '#374151';
+        });
+        
+        e.target.style.background = '#6366f1';
+        e.target.style.color = 'white';
+        
+        if (e.target.id === 'filterSemua') currentFilter = 'semua';
+        else if (e.target.id === 'filterHariIni') currentFilter = 'hariIni';
+        else if (e.target.id === 'filterMingguIni') currentFilter = 'mingguIni';
+        else if (e.target.id === 'filterBulanIni') currentFilter = 'bulanIni';
+        
+        renderTable();
+      });
+    });
+
+    // Refresh Button
+    document.getElementById('refreshBtn').addEventListener('click', () => {
+      loadData();
+    });
+
+    // Export to CSV
+    document.getElementById('exportBtn').addEventListener('click', () => {
+      const filteredData = getFilteredData();
+      
+      if (filteredData.length === 0) {
+        alert('❌ Tidak ada data untuk di-export!');
+        return;
+      }
+
+      let csv = 'No,Waktu,Nama Siswa,Muraja\'ah Quran,Mapel Diniyyah,Mapel Umum,Membantu Orangtua\n';
+      
+      filteredData.forEach((item, index) => {
+        csv += `${index + 1},"${item.waktu}","${item.nama_siswa}","${item.judul_tugas}","${item.mapel_diniyyah}","${item.mapel_umum}","${item.membantu_orangtua}"\n`;
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      const url = URL.createObjectURL(blob);
+      
+      link.setAttribute('href', url);
+      link.setAttribute('download', `laporan-muraja'ah-${new Date().toLocaleDateString('id-ID')}.csv`);
+      link.style.visibility = 'hidden';
+      
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a449055a7d74abb',t:'MTc2NDEwOTU0Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
